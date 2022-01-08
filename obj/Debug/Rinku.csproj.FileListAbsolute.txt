@@ -1,0 +1,16 @@
+C:\SISTEMAS\Rinku\bin\Debug\Rinku.exe.config
+C:\SISTEMAS\Rinku\bin\Debug\Rinku.exe
+C:\SISTEMAS\Rinku\bin\Debug\Rinku.pdb
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.csproj.AssemblyReference.cache
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.csproj.SuggestedBindingRedirects.cache
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.cEmpleado.resources
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.MDIMenu.resources
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.Properties.Resources.resources
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.csproj.GenerateResource.cache
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.csproj.CoreCompileInputs.cache
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.exe
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.pdb
+C:\SISTEMAS\Rinku\bin\Debug\Dapper.dll
+C:\SISTEMAS\Rinku\bin\Debug\Dapper.xml
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.csproj.CopyComplete
+C:\SISTEMAS\Rinku\bin\Debug\System.ComponentModel.Annotations.dll
