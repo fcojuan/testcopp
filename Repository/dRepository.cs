@@ -88,7 +88,7 @@ namespace Rinku.Repository
         }
         public async Task<int> BDAddAsync(string NomStored, string[] storedParam, string[] cVariables)
         {
-            int Regresar = -1;
+            int Regresar = 1;
             using (SqlConnection con = new SqlConnection(this.GetConnection()))
             {
                 await con.OpenAsync();
@@ -107,13 +107,12 @@ namespace Rinku.Repository
                 }
                 catch (Exception ex)
                 {
+                    Regresar = -1;
                     sqltrans.Rollback();
                     con.Close();
-                    //Return Valor;
                 }
                 finally
                 {
-                    Regresar = 1;
                     sqltrans.Dispose();
                     con.Close();
                 }
@@ -150,7 +149,7 @@ namespace Rinku.Repository
         }
         public int BDAccionReg(string NameProc, string[] storedParam, string[] cVariables)
         {
-            int Regreso = -1;
+            int Regreso = 1;
             using (SqlConnection con = new SqlConnection(this.GetConnection()))
             {
                 con.Open();
@@ -168,13 +167,13 @@ namespace Rinku.Repository
                 }
                 catch (Exception ex)
                 {
+                    Regreso = -1;
                     sqltrans.Rollback();
                     con.Close();
                     throw ex;
                 }
                 finally
                 {
-                    Regreso = 1;
                     sqltrans.Dispose();
                     con.Close();
                 }

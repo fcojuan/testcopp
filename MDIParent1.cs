@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rinku.Presentacion;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,6 @@ namespace Rinku
 {
     public partial class MDIMenu : Form
     {
-        private int childFormNumber = 0;
-
         public MDIMenu()
         {
             InitializeComponent();
@@ -21,21 +20,16 @@ namespace Rinku
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            cEmpleado childForm = new cEmpleado();
-            childForm.MdiParent = this;
-            //childForm.Text = "Ventana " + childFormNumber++;
-            childForm.Show();
+            //cEmpleado childForm = new cEmpleado();
+            //childForm.MdiParent = this;
+            //childForm.Show();
         }
 
         private void OpenFile(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = openFileDialog.FileName;
-            }
+            cEmpleado childForm = new cEmpleado();
+            childForm.MdiParent = this;
+            childForm.Show();
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -64,11 +58,6 @@ namespace Rinku
 
         private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        }
-
-        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
         }
 
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -102,6 +91,13 @@ namespace Rinku
             {
                 childForm.Close();
             }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Configuracion childForm = new Configuracion();
+            childForm.MdiParent = this;
+            childForm.Show();
         }
     }
 }

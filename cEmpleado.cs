@@ -11,7 +11,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+/// <summary>
+/// contiene toda la indformacion requerida del trabajo para poder realizar su funcion de entrega de paquetes
+/// asi como el sueldo y jornada de trabajo
+/// </summary>
 namespace Rinku
 {
     public partial class cEmpleado : Form
@@ -21,7 +24,7 @@ namespace Rinku
         private readonly dRepository<Tipoc> RepoTipo;
 
         MensageCaja mensaje = new MensageCaja();
-
+        //Este array contiene los parametros que ocupa el sp para poder realizar los procesos,insertar buscar modificar
         string[] lParamAdd = { "@Opc", "@Id","@Codigo","@Nombre","@IdRol","@IdTipo", "@Sueldo","@Jornada" };
 
         string[] lParam = { };
@@ -93,15 +96,16 @@ namespace Rinku
         }
         private async void button1_Click(object sender, EventArgs e)
         {
+            //valida los datos y si es correcto llena el array para gusrdar los datos
             if (Validar())
             {
                 lVar = LlenarAray();
-
+                //Llama a el procedmiento, se manda los array con los parametro del sp y los valores capturados en el form
                 int ReturnTask = await Task.Run(() => gRepo.BDAddAsync("c_spEmpleado", lParamAdd, lVar));
 
                 if (ReturnTask == 1)
                 {
-                    await ActualizarGrid();
+                    await ActualizarGrid();//muestra actualizado el grid
                     mensaje.MensagesCaja("DATOS GUARDADOS", "Success");
                    
                     LimpiezaTxt();
@@ -111,6 +115,76 @@ namespace Rinku
                     mensaje.MensagesCaja("NO SE GUARDARON LOS DATOS", "Error");
                 }
             }
+        }
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            lParam = new string[] { "@Opc", "@ID" };
+            lVar = new string[] { "3", txtID.Text.Trim() };
+            //llama al sp para realizar el proceso de borrado
+            int valor = gRepo.BDAccionReg("c_spEmpleado", lParam, lVar);
+            if (valor == 1)
+            {
+                _ = ActualizarGrid();
+                mensaje.MensagesCaja("EL DATOS FUE BORRADO", "Success");
+
+                LimpiezaTxt();
+            }
+            else
+            {
+                mensaje.MensagesCaja("NO SE BORRO EL DATO", "Error");
+            }
+        }
+        private void numSueldo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //solo acepta numeros 
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            if ((e.KeyChar == '.') && ((sender as NumericUpDown).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+        private void numSueldo_KeyDown(object sender, KeyEventArgs e)
+        {
+            NumericUpDown textbox = (NumericUpDown)sender;
+            int index = Convert.ToInt32(textbox.Tag);
+
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    SendKeys.Send("{TAB}");
+                    //Evitar el pitido
+                    e.Handled = true;
+                    break;
+                default:
+                    //JuegoTeclas(e);
+                    break;
+            }
+        }
+        private void dataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            //controla el movieminto de las teclas en el grid y llama  la funcion para mostrar datos en pantalla
+            int reng = 0;
+            DataGridViewCell Indcell = dataGridView.CurrentCell;
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    reng = Indcell.RowIndex > 0 ? Indcell.RowIndex - 1 : Indcell.RowIndex;
+                    CargarDatos(reng);
+                    break;
+                case Keys.Down:
+                    reng = Indcell.RowIndex < dataGridView.RowCount - 1 ? Indcell.RowIndex + 1 : Indcell.RowIndex;
+                    CargarDatos(reng);
+                    break;
+            }
+        }
+        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewCell Indcell = dataGridView.CurrentCell;
+            CargarDatos(Indcell.RowIndex);
+
         }
         //----------------------------------------
         //--------------------FUNCIONES NECESARIAS
@@ -146,41 +220,7 @@ namespace Rinku
             };
             return lcampos;
         }
-        private void dataGridView_KeyDown(object sender, KeyEventArgs e)
-        {
-            int reng = 0;
-            DataGridViewCell Indcell = dataGridView.CurrentCell;
-            switch (e.KeyCode)
-            {
-                case Keys.Up:
-                    reng = Indcell.RowIndex > 0 ? Indcell.RowIndex - 1 : Indcell.RowIndex;
-                    CargarDatos(reng);
-                    break;
-                case Keys.Down:
-                    reng = Indcell.RowIndex < dataGridView.RowCount - 1 ? Indcell.RowIndex + 1 : Indcell.RowIndex;
-                    CargarDatos(reng);
-                    break;
-            }
-        }
-        private void btnBorrar_Click(object sender, EventArgs e)
-        {
-            lParam = new string[] { "@Opc", "@ID" };
-            lVar = new string[] { "3", txtID.Text.Trim() };
 
-            int valor = gRepo.BDAccionReg("c_spEmpleado", lParam, lVar);
-            if (valor == 1)
-            {
-                _ = ActualizarGrid();
-                mensaje.MensagesCaja("EL DATOS FUE BORRADO", "Success");
-
-                LimpiezaTxt();
-            }
-            else
-            {
-                mensaje.MensagesCaja("NO SE BORRO EL DATO", "Error");
-            }
-        }
-        //----------------------Utilerias 
         private async Task  ActualizarGrid()
         {
             DataGridViewCellStyle cellStyle=new DataGridViewCellStyle();
@@ -256,9 +296,9 @@ namespace Rinku
             return regreso;
         }
 
-
         private void CargarDatos(int Renglon)
         {
+            //Muestra los datos en pantalla
             btnBorrar.Enabled = true;
             txtID.Text = dataGridView.Rows[Renglon].Cells[0].Value.ToString();
             txtCod.Text = dataGridView.Rows[Renglon].Cells[1].Value.ToString();
@@ -274,58 +314,6 @@ namespace Rinku
                 cBoxJornada.Items.Add(i);
             }
             cBoxJornada.Text = "8";
-        }
-
-        private void txtHora_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            //{
-            //    e.Handled = true;
-            //}
-
-            //// If you want, you can allow decimal (float) numbers
-            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            //{
-            //    e.Handled = true;
-            //}
-            //e.Handled = false;
-        }
-
-        private void numSueldo_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-            if ((e.KeyChar == '.') && ((sender as NumericUpDown).Text.IndexOf('.') > -1))
-            {
-
-            }
-        }
-
-        private void numSueldo_KeyDown(object sender, KeyEventArgs e)
-        {
-            NumericUpDown textbox = (NumericUpDown)sender;
-            int index = Convert.ToInt32(textbox.Tag);
-
-            switch (e.KeyCode)
-            {
-                case Keys.Enter:
-                    SendKeys.Send("{TAB}");
-                    //Evitar el pitido
-                    e.Handled = true;
-                    break;
-                default:
-                    //JuegoTeclas(e);
-                    break;
-            }
-        }
-
-        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewCell Indcell = dataGridView.CurrentCell;
-            CargarDatos(Indcell.RowIndex);
-
         }
 
 
@@ -346,42 +334,6 @@ namespace Rinku
         //            break;
         //    }
         //}
-        //private void groupBox1_Paint(object sender, PaintEventArgs e)
-        //{
-        //    GroupBox box = sender as GroupBox;
-        //    DrawGroupBox(box, e.Graphics, Color.Red, Color.Black);
-        //}
-        //private void DrawGroupBox(GroupBox box, Graphics g, Color textColor, Color borderColor)
-        //{
-        //    if (box != null)
-        //    {
-        //        Brush textBrush = new SolidBrush(textColor);
-        //        Brush borderBrush = new SolidBrush(borderColor);
-        //        Pen borderPen = new Pen(borderBrush);
-        //        SizeF strSize = g.MeasureString(box.Text, box.Font);
-        //        Rectangle rect = new Rectangle(box.ClientRectangle.X,
-        //                                       box.ClientRectangle.Y + (int)(strSize.Height / 2),
-        //                                       box.ClientRectangle.Width - 1,
-        //                                       box.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
 
-        //        // Clear text and border
-        //        g.Clear(this.BackColor);
-
-        //        // Draw text
-        //        g.DrawString(box.Text, box.Font, textBrush, box.Padding.Left, 0);
-
-        //        // Drawing Border
-        //        //Left
-        //        g.DrawLine(borderPen, rect.Location, new Point(rect.X, rect.Y + rect.Height));
-        //        //Right
-        //        g.DrawLine(borderPen, new Point(rect.X + rect.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-        //        //Bottom
-        //        g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-        //        //Top1
-        //        g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + box.Padding.Left, rect.Y));
-        //        //Top2
-        //        g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
-        //    }
-        //}
     }
 }
