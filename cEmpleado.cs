@@ -49,24 +49,6 @@ namespace Rinku
             LlenarHoras();
             _ = ActualizarGrid();
         }
-        private void LimpiezaTxt()
-        {
-            txtID.Visible = false;
-            txtID.Text = "0";
-            txtCod.Text = "";
-            txtNombre.Text = "";
-            numSueldo.Value = 0;
-            cBoxJornada.Text = "8";
-            txtCod.Enabled = false;
-            btnBorrar.Enabled = false;
-
-            lParam = new string[] { "@Opc", "@Id" };
-            lVar = new string[] { "5", "0" };
-            txtCod.Text = gRepo.BuscarReg("c_spEmpleado", lParam, lVar);
-
-            txtNombre.Select();
-
-        }
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -315,7 +297,24 @@ namespace Rinku
             }
             cBoxJornada.Text = "8";
         }
+        private void LimpiezaTxt()
+        {
+            txtID.Visible = false;
+            txtID.Text = "0";
+            txtCod.Text = "";
+            txtNombre.Text = "";
+            numSueldo.Value = 0;
+            cBoxJornada.Text = "8";
+            txtCod.Enabled = false;
+            btnBorrar.Enabled = false;
 
+            lParam = new string[] { "@Opc", "@Id" };
+            lVar = new string[] { "5", "0" };
+            txtCod.Text = gRepo.BuscarReg("c_spEmpleado", lParam, lVar);
+
+            txtNombre.Select();
+
+        }
 
 
         //private void JuegoTeclas(KeyEventArgs Tecla)

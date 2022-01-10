@@ -20,9 +20,9 @@ namespace Rinku
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            //cEmpleado childForm = new cEmpleado();
-            //childForm.MdiParent = this;
-            //childForm.Show();
+            Movimientos childForm = new Movimientos();
+            childForm.MdiParent = this;
+            childForm.Show();
         }
 
         private void OpenFile(object sender, EventArgs e)

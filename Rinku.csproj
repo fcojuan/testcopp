@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Models\Configuracionc.cs" />
     <Compile Include="Models\Empleadoc.cs" />
+    <Compile Include="Models\Movimientoc.cs" />
     <Compile Include="Models\Tipoc.cs" />
     <Compile Include="Models\Rolc.cs" />
     <Compile Include="Presentacion\Configuracion.cs">
@@ -89,6 +90,12 @@
     </Compile>
     <Compile Include="Presentacion\Configuracion.Designer.cs">
       <DependentUpon>Configuracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Movimientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Movimientos.Designer.cs">
+      <DependentUpon>Movimientos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Configuracion.resx">
       <DependentUpon>Configuracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Movimientos.resx">
+      <DependentUpon>Movimientos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

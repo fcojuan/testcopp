@@ -15,3 +15,4 @@ C:\SISTEMAS\Rinku\bin\Debug\Dapper.xml
 C:\SISTEMAS\Rinku\obj\Debug\Rinku.csproj.CopyComplete
 C:\SISTEMAS\Rinku\bin\Debug\System.ComponentModel.Annotations.dll
 C:\SISTEMAS\Rinku\obj\Debug\Rinku.Presentacion.Configuracion.resources
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.Presentacion.Movimientos.resources
