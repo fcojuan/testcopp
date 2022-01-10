@@ -11,6 +11,8 @@ namespace Rinku.Models
         public int ID { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
+        public string Cargador { get; set; }
+        public string NomCargador { get; set; }
         public string Entregas { get; set; }
         public string Horas { get; set; }
         public string Fecha { get; set; }

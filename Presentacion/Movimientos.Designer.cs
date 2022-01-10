@@ -30,38 +30,44 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblCodigo = new System.Windows.Forms.Label();
-            this.txtCod = new System.Windows.Forms.TextBox();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.lblRol = new System.Windows.Forms.Label();
-            this.lblTipo = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtFecha = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.nEntrega = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.checkCT = new System.Windows.Forms.CheckBox();
+            this.lblID = new System.Windows.Forms.TextBox();
+            this.nHoras = new System.Windows.Forms.NumericUpDown();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.checkCT = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.nEntrega = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtFecha = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblTipo = new System.Windows.Forms.Label();
+            this.lblRol = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.txtCod = new System.Windows.Forms.TextBox();
+            this.lblCodigo = new System.Windows.Forms.Label();
             this.btnBorrar = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btn_Add = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.nHoras = new System.Windows.Forms.NumericUpDown();
-            this.lblID = new System.Windows.Forms.TextBox();
             this.bindingSourceMov = new System.Windows.Forms.BindingSource(this.components);
+            this.txtCargador = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblNomCarga = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nHoras)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntrega)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nHoras)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceMov)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.PeachPuff;
+            this.groupBox1.Controls.Add(this.lblNomCarga);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtCargador);
             this.groupBox1.Controls.Add(this.lblID);
             this.groupBox1.Controls.Add(this.nHoras);
             this.groupBox1.Controls.Add(this.btnSearch);
@@ -84,107 +90,74 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // lblCodigo
+            // lblID
             // 
-            this.lblCodigo.AutoSize = true;
-            this.lblCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodigo.Location = new System.Drawing.Point(6, 35);
-            this.lblCodigo.Name = "lblCodigo";
-            this.lblCodigo.Size = new System.Drawing.Size(188, 20);
-            this.lblCodigo.TabIndex = 0;
-            this.lblCodigo.Text = "Número Del Empleado";
+            this.lblID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblID.Location = new System.Drawing.Point(385, 9);
+            this.lblID.Name = "lblID";
+            this.lblID.Size = new System.Drawing.Size(100, 26);
+            this.lblID.TabIndex = 14;
             // 
-            // txtCod
+            // nHoras
             // 
-            this.txtCod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCod.Location = new System.Drawing.Point(200, 29);
-            this.txtCod.Name = "txtCod";
-            this.txtCod.Size = new System.Drawing.Size(100, 26);
-            this.txtCod.TabIndex = 1;
-            this.txtCod.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCod_KeyDown);
+            this.nHoras.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nHoras.Location = new System.Drawing.Point(443, 183);
+            this.nHoras.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.nHoras.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nHoras.Name = "nHoras";
+            this.nHoras.Size = new System.Drawing.Size(58, 26);
+            this.nHoras.TabIndex = 5;
+            this.nHoras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nHoras.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // lblNombre
+            // btnSearch
             // 
-            this.lblNombre.BackColor = System.Drawing.Color.White;
-            this.lblNombre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(200, 63);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(414, 26);
-            this.lblNombre.TabIndex = 2;
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Location = new System.Drawing.Point(306, 10);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(73, 26);
+            this.btnSearch.TabIndex = 13;
+            this.btnSearch.Text = "&Busqueda";
+            this.btnSearch.UseVisualStyleBackColor = true;
             // 
-            // lblRol
+            // checkCT
             // 
-            this.lblRol.BackColor = System.Drawing.Color.White;
-            this.lblRol.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRol.Location = new System.Drawing.Point(200, 100);
-            this.lblRol.Name = "lblRol";
-            this.lblRol.Size = new System.Drawing.Size(167, 26);
-            this.lblRol.TabIndex = 3;
+            this.checkCT.AutoSize = true;
+            this.checkCT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkCT.Location = new System.Drawing.Point(317, 185);
+            this.checkCT.Name = "checkCT";
+            this.checkCT.Size = new System.Drawing.Size(131, 24);
+            this.checkCT.TabIndex = 4;
+            this.checkCT.Text = "Cubrio Turno";
+            this.checkCT.UseVisualStyleBackColor = true;
+            this.checkCT.CheckedChanged += new System.EventHandler(this.checkCT_CheckedChanged);
             // 
-            // lblTipo
+            // label2
             // 
-            this.lblTipo.BackColor = System.Drawing.Color.White;
-            this.lblTipo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTipo.Location = new System.Drawing.Point(447, 101);
-            this.lblTipo.Name = "lblTipo";
-            this.lblTipo.Size = new System.Drawing.Size(167, 26);
-            this.lblTipo.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 69);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 20);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Nombre";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 106);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 20);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Rol";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(398, 107);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 20);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Tipo";
-            // 
-            // txtFecha
-            // 
-            this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFecha.Location = new System.Drawing.Point(200, 139);
-            this.txtFecha.Name = "txtFecha";
-            this.txtFecha.Size = new System.Drawing.Size(100, 26);
-            this.txtFecha.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 145);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 20);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Fecha";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 189);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(184, 20);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Cantidad de Entregas";
             // 
             // nEntrega
             // 
             this.nEntrega.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nEntrega.Location = new System.Drawing.Point(200, 178);
+            this.nEntrega.Location = new System.Drawing.Point(200, 183);
             this.nEntrega.Minimum = new decimal(new int[] {
             1,
             0,
@@ -200,37 +173,102 @@
             0,
             0});
             // 
-            // label2
+            // label1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 184);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(184, 20);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Cantidad de Entregas";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 157);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 20);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Fecha";
             // 
-            // checkCT
+            // txtFecha
             // 
-            this.checkCT.AutoSize = true;
-            this.checkCT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCT.Location = new System.Drawing.Point(321, 180);
-            this.checkCT.Name = "checkCT";
-            this.checkCT.Size = new System.Drawing.Size(131, 24);
-            this.checkCT.TabIndex = 4;
-            this.checkCT.Text = "Cubrio Turno";
-            this.checkCT.UseVisualStyleBackColor = true;
-            this.checkCT.CheckedChanged += new System.EventHandler(this.checkCT_CheckedChanged);
+            this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFecha.Location = new System.Drawing.Point(200, 151);
+            this.txtFecha.Name = "txtFecha";
+            this.txtFecha.Size = new System.Drawing.Size(100, 26);
+            this.txtFecha.TabIndex = 2;
             // 
-            // btnSearch
+            // label6
             // 
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(306, 29);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(73, 26);
-            this.btnSearch.TabIndex = 13;
-            this.btnSearch.Text = "&Busqueda";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(398, 88);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 20);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Tipo";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(11, 87);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(36, 20);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Rol";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 50);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 20);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Nombre";
+            // 
+            // lblTipo
+            // 
+            this.lblTipo.BackColor = System.Drawing.Color.White;
+            this.lblTipo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipo.Location = new System.Drawing.Point(447, 82);
+            this.lblTipo.Name = "lblTipo";
+            this.lblTipo.Size = new System.Drawing.Size(167, 26);
+            this.lblTipo.TabIndex = 4;
+            // 
+            // lblRol
+            // 
+            this.lblRol.BackColor = System.Drawing.Color.White;
+            this.lblRol.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRol.Location = new System.Drawing.Point(200, 81);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(167, 26);
+            this.lblRol.TabIndex = 3;
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.BackColor = System.Drawing.Color.White;
+            this.lblNombre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Location = new System.Drawing.Point(200, 44);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(520, 26);
+            this.lblNombre.TabIndex = 2;
+            // 
+            // txtCod
+            // 
+            this.txtCod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCod.Location = new System.Drawing.Point(200, 10);
+            this.txtCod.Name = "txtCod";
+            this.txtCod.Size = new System.Drawing.Size(100, 26);
+            this.txtCod.TabIndex = 1;
+            this.txtCod.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCod_KeyDown);
+            // 
+            // lblCodigo
+            // 
+            this.lblCodigo.AutoSize = true;
+            this.lblCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCodigo.Location = new System.Drawing.Point(6, 16);
+            this.lblCodigo.Name = "lblCodigo";
+            this.lblCodigo.Size = new System.Drawing.Size(188, 20);
+            this.lblCodigo.TabIndex = 0;
+            this.lblCodigo.Text = "Número Del Empleado";
             // 
             // btnBorrar
             // 
@@ -290,37 +328,34 @@
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_KeyDown);
             // 
-            // nHoras
+            // txtCargador
             // 
-            this.nHoras.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nHoras.Location = new System.Drawing.Point(447, 178);
-            this.nHoras.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.nHoras.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nHoras.Name = "nHoras";
-            this.nHoras.Size = new System.Drawing.Size(58, 26);
-            this.nHoras.TabIndex = 5;
-            this.nHoras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nHoras.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.txtCargador.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCargador.Location = new System.Drawing.Point(200, 117);
+            this.txtCargador.Name = "txtCargador";
+            this.txtCargador.Size = new System.Drawing.Size(100, 26);
+            this.txtCargador.TabIndex = 15;
+            this.txtCargador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCargador_KeyDown);
             // 
-            // lblID
+            // label3
             // 
-            this.lblID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblID.Location = new System.Drawing.Point(385, 28);
-            this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(100, 26);
-            this.lblID.TabIndex = 14;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 125);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(176, 20);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Codigo Del Cargador";
+            // 
+            // lblNomCarga
+            // 
+            this.lblNomCarga.BackColor = System.Drawing.Color.White;
+            this.lblNomCarga.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblNomCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNomCarga.Location = new System.Drawing.Point(306, 119);
+            this.lblNomCarga.Name = "lblNomCarga";
+            this.lblNomCarga.Size = new System.Drawing.Size(414, 26);
+            this.lblNomCarga.TabIndex = 17;
             // 
             // Movimientos
             // 
@@ -339,9 +374,9 @@
             this.Load += new System.EventHandler(this.Movimientos_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nHoras)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntrega)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nHoras)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceMov)).EndInit();
             this.ResumeLayout(false);
 
@@ -372,5 +407,8 @@
         private System.Windows.Forms.NumericUpDown nHoras;
         private System.Windows.Forms.TextBox lblID;
         private System.Windows.Forms.BindingSource bindingSourceMov;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtCargador;
+        private System.Windows.Forms.Label lblNomCarga;
     }
 }

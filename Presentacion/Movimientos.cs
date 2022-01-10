@@ -20,7 +20,7 @@ namespace Rinku.Presentacion
         private readonly dRepository<Empleadoc> eRepo;
         MensageCaja mensaje = new MensageCaja();
 
-        string[] lParamAdd = { "@Opc", "@Id", "@Codigo", "@Fecha", "@Entrega", "@Horas" };
+        string[] lParamAdd = { "@Opc", "@Id", "@Codigo", "@Cargador", "@Fecha", "@Entrega", "@Horas" };
 
         string[] lParam = { };
         string[] lVar = { };
@@ -39,9 +39,6 @@ namespace Rinku.Presentacion
         }
         private async void txtCod_KeyDown(object sender, KeyEventArgs e)
         {
-            //NumericUpDown textbox = (NumericUpDown)sender;
-            //int index = Convert.ToInt32(textbox.Tag);
-
             switch (e.KeyCode)
             {
                 case Keys.Enter:
@@ -49,7 +46,7 @@ namespace Rinku.Presentacion
 
                     if (txtCod.Text != "00000")
                     {
-                        if (await DatosEmpleado(txtCod.Text)==1)
+                        if (await DatosEmpleado(txtCod.Text,1)==1)
                         {
                             //SendKeys.Send("{TAB}");
                         }
@@ -62,6 +59,29 @@ namespace Rinku.Presentacion
             //Evitar el pitido
             e.Handled = true;
         }
+        private async void txtCargador_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    txtCargador.Text = txtCargador.Text.PadLeft(5, '0').Trim();
+
+                    if (txtCargador.Text != "00000")
+                    {
+                        if (await DatosEmpleado(txtCod.Text,2) == 1)
+                        {
+                            //SendKeys.Send("{TAB}");
+                        }
+                    }
+                    break;
+                default:
+                    //JuegoTeclas(e);
+                    break;
+            }
+            //Evitar el pitido
+            e.Handled = true;
+        }
+
         private void checkCT_CheckedChanged(object sender, EventArgs e)
         {
             nHoras.Enabled = checkCT.Checked == true ? false : true;
@@ -149,11 +169,12 @@ namespace Rinku.Presentacion
             }
             dataGridView.Columns[0].Visible = false;
             //dataGridView.Columns[5].Visible = false;
-            dataGridView.Columns[6].Visible = false;
             dataGridView.Columns[7].Visible = false;
             dataGridView.Columns[8].Visible = false;
             dataGridView.Columns[9].Visible = false;
             dataGridView.Columns[10].Visible = false;
+            dataGridView.Columns[11].Visible = false;
+            dataGridView.Columns[12].Visible = false;
         }
         private void dataGridView_KeyDown(object sender, KeyEventArgs e)
         {
@@ -215,7 +236,7 @@ namespace Rinku.Presentacion
             txtFecha.Text = DateTime.Now.ToShortDateString();
             txtCod.SelectAll();
         }
-        private async Task<int> DatosEmpleado(string Cod)
+        private async Task<int> DatosEmpleado(string Cod,int opc)
         {
             this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             //------------llama al procedimiento
@@ -225,15 +246,33 @@ namespace Rinku.Presentacion
             if (Lista.Count == 0)
             {
                 mensaje.MensagesCaja("CODIGO DE EMPLEADO NO EXISTE", "Error");
+                if (opc == 1)
+                {
+                    txtCod.Text = "";
+                    txtCod.SelectAll();
+                }
+                else
+                {
+                    txtCargador.Text = "";
+                    txtCargador.SelectAll();
+                }
             }
             else
             {
-                txtCod.Enabled = false;
-                txtCod.Text = Lista[0].Codigo;
-                lblNombre.Text = Lista[0].Nombre.Trim();
-                lblRol.Text = Lista[0].Rol.Trim();
-                lblTipo.Text = Lista[0].Tipo.Trim();
-                txtFecha.SelectAll();
+                if (opc == 1)
+                {
+                    txtCod.Enabled = false;
+                    txtCod.Text = Lista[0].Codigo;
+                    lblNombre.Text = Lista[0].Nombre.Trim();
+                    lblRol.Text = Lista[0].Rol.Trim();
+                    lblTipo.Text = Lista[0].Tipo.Trim();
+                    txtCargador.SelectAll();
+                }
+                else
+                {
+                    lblNomCarga.Text = Lista[0].Nombre.Trim();
+                    txtFecha.SelectAll();
+                }
 
             }
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -246,17 +285,26 @@ namespace Rinku.Presentacion
             btnBorrar.Enabled = true;
             lblID.Text = dataGridView.Rows[Renglon].Cells[0].Value.ToString();
             txtCod.Text = dataGridView.Rows[Renglon].Cells[1].Value.ToString();
-            nEntrega.Value = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[3].Value);
-            nHoras.Value = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[4].Value);
-            checkCT.Checked = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[4].Value) == 8 ? true : false;
-            txtFecha.Text = dataGridView.Rows[Renglon].Cells[5].Value.ToString();
-            btnBorrar.Text = dataGridView.Rows[Renglon].Cells[11].Value.ToString() == "Borrado" ? "Activar" : "Borrado";
-            await DatosEmpleado(txtCod.Text);
+            txtCargador.Text = dataGridView.Rows[Renglon].Cells[3].Value.ToString();
+            nEntrega.Value = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[5].Value);
+            nHoras.Value = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[6].Value);
+            checkCT.Checked = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[6].Value) == 8 ? true : false;
+            txtFecha.Text = dataGridView.Rows[Renglon].Cells[7].Value.ToString();
+            btnBorrar.Text = dataGridView.Rows[Renglon].Cells[13].Value.ToString() == "Borrado" ? "Activar" : "Borrado";
+            await DatosEmpleado(txtCod.Text,1);
+            await DatosEmpleado(txtCargador.Text,2);
         }
         private bool Validar()
         {
             bool regreso = true;
             DateTime temp;
+
+            if ((txtCod.Text.Trim().Length<=0 || txtCargador.Text.Trim().Length <= 0) && regreso)
+            {
+                regreso = false;
+                mensaje.MensagesCaja("CODIGO DE EMPLEADO NO EXISTE CHOFER/CARGADOR", "Information");
+            }
+
             if (!DateTime.TryParse(txtFecha.Text.Trim(), out temp) && regreso)
             {
                 regreso = false;
@@ -273,7 +321,7 @@ namespace Rinku.Presentacion
         string[] LlenarAray()
         {
             string[] lcampos = {
-            "1",lblID.Text.Trim(),txtCod.Text.Trim(),Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd"),nEntrega.Value.ToString(),nHoras.Value.ToString()
+            "1",lblID.Text.Trim(),txtCod.Text.Trim(),txtCargador.Text.Trim(),Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd"),nEntrega.Value.ToString(),nHoras.Value.ToString()
             };
             return lcampos;
         }
