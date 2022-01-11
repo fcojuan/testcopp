@@ -2,7 +2,6 @@
 using Rinku.Repository;
 using Rinku.Utileria;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,58 +10,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-/// <summary>
-/// contiene toda la indformacion requerida del trabajo para poder realizar su funcion de entrega de paquetes
-/// asi como el sueldo y jornada de trabajo
-/// </summary>
-namespace Rinku
+
+namespace Rinku.Presentacion
 {
-    public partial class cEmpleado : Form
+    public partial class cRol : Form
     {
-        private readonly dRepository<Empleadoc> gRepo;
-        private readonly dRepository<Rolc> RepoRol;
-        private readonly dRepository<Tipoc> RepoTipo;
+        private readonly dRepository<Rolc> gRepo;
 
         MensageCaja mensaje = new MensageCaja();
         //Este array contiene los parametros que ocupa el sp para poder realizar los procesos,insertar buscar modificar
-        string[] lParamAdd = { "@Opc", "@Id","@Codigo","@Nombre","@IdRol","@IdTipo", "@Sueldo","@Jornada" };
+        string[] lParamAdd = { "@Opc", "@Id", "@Nombre", "@Bono", "@BonoPaq" };
 
         string[] lParam = { };
         string[] lVar = { };
-
-
-        public cEmpleado()
+        public cRol()
         {
             InitializeComponent();
 
-            gRepo = new dRepository<Empleadoc>();
-            RepoRol = new dRepository<Rolc>();
-            RepoTipo = new dRepository<Tipoc>();
+            gRepo = new dRepository<Rolc>();
         }
 
-        private void cEmpleado_Load(object sender, EventArgs e)
+        private void cRol_Load(object sender, EventArgs e)
         {
             LimpiezaTxt();
-
-            _ = GetCombo(cBoxRol, "4");
-            _ = GetCombo(cBoxTipo, "4");
-            LlenarHoras();
-            _ = ActualizarGrid();
-        }
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            _=ActualizarGrid();
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
             LimpiezaTxt();
         }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void txtNombre_KeyDown(object sender, KeyEventArgs e)
         {
-            TextBox textbox = (TextBox)sender;
-            int index = Convert.ToInt32(textbox.Tag);
-
             switch (e.KeyCode)
             {
                 case Keys.Enter:
@@ -76,28 +61,31 @@ namespace Rinku
                     break;
             }
         }
-        private async void button1_Click(object sender, EventArgs e)
+
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             //valida los datos y si es correcto llena el array para gusrdar los datos
             if (Validar())
             {
                 lVar = LlenarAray();
                 //Llama a el procedmiento, se manda los array con los parametro del sp y los valores capturados en el form
-                int ReturnTask = await Task.Run(() => gRepo.BDAddAsync("c_spEmpleado", lParamAdd, lVar));
+                int ReturnTask = await Task.Run(() => gRepo.BDAddAsync("c_spRol", lParamAdd, lVar));
 
                 if (ReturnTask == 1)
                 {
                     await ActualizarGrid();//muestra actualizado el grid
                     mensaje.MensagesCaja("DATOS GUARDADOS", "Success");
-                   
+
                     LimpiezaTxt();
                 }
                 else
                 {
                     mensaje.MensagesCaja("NO SE GUARDARON LOS DATOS", "Error");
+
                 }
             }
         }
+
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             DialogResult d;
@@ -107,21 +95,22 @@ namespace Rinku
                 lParam = new string[] { "@Opc", "@ID" };
                 lVar = new string[] { "3", txtID.Text.Trim() };
                 //llama al sp para realizar el proceso de borrado
-                int valor = gRepo.BDAccionReg("c_spEmpleado", lParam, lVar);
+                int valor = gRepo.BDAccionReg("c_spRol", lParam, lVar);
                 if (valor == 1)
                 {
                     _ = ActualizarGrid();
-                    mensaje.MensagesCaja("EL DATOS FUE BORRADO", "Success");
+                    mensaje.MensagesCaja("EL DATOS FUE AFECTADO", "Success");
 
                     LimpiezaTxt();
                 }
                 else
                 {
-                    mensaje.MensagesCaja("NO SE BORRO EL DATO", "Error");
+                    mensaje.MensagesCaja("NO SE AFECTO EL DATO", "Error");
                 }
             }
         }
-        private void numSueldo_KeyPress(object sender, KeyPressEventArgs e)
+
+        private void nBono_KeyPress(object sender, KeyPressEventArgs e)
         {
             //solo acepta numeros 
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -131,23 +120,6 @@ namespace Rinku
             if ((e.KeyChar == '.') && ((sender as NumericUpDown).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
-            }
-        }
-        private void numSueldo_KeyDown(object sender, KeyEventArgs e)
-        {
-            NumericUpDown textbox = (NumericUpDown)sender;
-            int index = Convert.ToInt32(textbox.Tag);
-
-            switch (e.KeyCode)
-            {
-                case Keys.Enter:
-                    SendKeys.Send("{TAB}");
-                    //Evitar el pitido
-                    e.Handled = true;
-                    break;
-                default:
-                    //JuegoTeclas(e);
-                    break;
             }
         }
         private void dataGridView_KeyDown(object sender, KeyEventArgs e)
@@ -175,46 +147,21 @@ namespace Rinku
         }
         //----------------------------------------
         //--------------------FUNCIONES NECESARIAS
-        private async Task GetCombo(ComboBox NomBox, string opc)
-        {
-            lParam = new string[] { "@Opc" };
-            lVar = new string[] { "4" };
-
-            var Lista = new object();
-            NomBox.DisplayMember = "Nombre";
-            NomBox.ValueMember = "ID";
-
-            switch (NomBox.Name)
-            {
-                case "cBoxRol":
-                    Lista = await RepoRol.BDListaCombo("c_spRol", lParam, lVar);
-                    List<Rolc> lista1 = (List<Rolc>)Lista;
-                    NomBox.DataSource = lista1;
-                    break;
-                case "cBoxTipo":
-                    Lista = await RepoTipo.BDListaCombo("c_spTipo", lParam, lVar);
-                    List<Tipoc> lista2 = (List<Tipoc>)Lista;
-                    NomBox.DataSource = lista2;
-                    break;
-            }
-
-        }
         string[] LlenarAray()
         {
             string[] lcampos = {
-            "1",txtID.Text.Trim(),txtCod.Text.Trim(),txtNombre.Text.ToUpper().Trim(),cBoxRol.SelectedValue.ToString(),
-                cBoxTipo.SelectedValue.ToString(),numSueldo.Value.ToString(),cBoxJornada.Text.Trim()
+            "1",txtID.Text.Trim(),txtNombre.Text.ToUpper().Trim(),nBono.Value.ToString(),checkBPaq.Checked==true?"1":"0"
             };
             return lcampos;
         }
 
-        private async Task  ActualizarGrid()
+        private async Task ActualizarGrid()
         {
-            DataGridViewCellStyle cellStyle=new DataGridViewCellStyle();
+            DataGridViewCellStyle cellStyle = new DataGridViewCellStyle();
 
             //------------agrega columnas al datatable
             DataTable dt = new DataTable();
-            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(Empleadoc));
+            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(Rolc));
 
             for (int i = 0; i < props.Count; i++)
             {
@@ -225,12 +172,12 @@ namespace Rinku
             lParam = new string[] { "@Opc" };
             lVar = new string[] { "4" };
 
-            var Lista = await Task.Run(() => gRepo.BDListaDatos("c_spEmpleado", lParam, lVar));
-            List<Empleadoc> lista1 = (List<Empleadoc>)Lista;
+            var Lista = await Task.Run(() => gRepo.BDListaDatos("c_spRol", lParam, lVar));
+            //List<Empleadoc> lista1 = (List<Empleadoc>)Lista;
 
             //-----------vacia la lista en el datatable
             object[] values = new object[props.Count];
-            foreach (Empleadoc item in lista1.Where(x => x.Situacion != "B"))
+            foreach (Rolc item in Lista.Where(x => x.Situacion != "B"))
             {
                 for (int i = 0; i < values.Length; i++)
                 {
@@ -239,32 +186,30 @@ namespace Rinku
                 dt.Rows.Add(values);
             }
             //-----------asigna el datatable al biding para asignarlo al dataview
-            bindingSourceEmp.DataMember = "";
-            bindingSourceEmp.DataSource = null;
+            bindingSourceRol.DataMember = "";
+            bindingSourceRol.DataSource = null;
 
-            bindingSourceEmp.DataSource = dt;
+            bindingSourceRol.DataSource = dt;
 
-            dataGridView.AutoSizeColumnsMode =DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.AllowUserToAddRows = false;
             dataGridView.AllowUserToDeleteRows = false;
-            dataGridView.SelectionMode= DataGridViewSelectionMode.FullRowSelect;
+            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             //---------------Poner Encabezado en negritas
             cellStyle.Font = new Font(dataGridView.Font.Name, dataGridView.Font.Size, FontStyle.Bold);
             dataGridView.ColumnHeadersDefaultCellStyle = cellStyle;
             //---------------Poner Color a los Renglones
             dataGridView.RowsDefaultCellStyle.BackColor = Color.White;
             dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.Wheat;
-            dataGridView.DataSource = bindingSourceEmp;
+            dataGridView.DataSource = bindingSourceRol;
 
-            for(int i = 0; i < dataGridView.Columns.Count; i++)
+            for (int i = 0; i < dataGridView.Columns.Count; i++)
             {
-                dataGridView.Columns[i].ReadOnly=true;
+                dataGridView.Columns[i].ReadOnly = true;
             }
-            dataGridView.Columns[0].Visible = false;
-            dataGridView.Columns[3].Visible = false;
-            dataGridView.Columns[5].Visible = false;
-
-            lblTotal.Text = "Empleado Totales: " + lista1.Count.ToString();
+            //dataGridView.Columns[0].Visible = false;
+            //dataGridView.Columns[3].Visible = false;
+            //dataGridView.Columns[5].Visible = false;
         }
         private bool Validar()
         {
@@ -272,12 +217,12 @@ namespace Rinku
             if (txtNombre.Text.Length <= 0 && regreso)
             {
                 regreso = false;
-                mensaje.MensagesCaja("SE NECESITA NOMBRE DE EMPLEADO", "Information");
+                mensaje.MensagesCaja("SE NECESITA NOMBRE DE ROL", "Information");
             }
-            if (txtNombre.Text.Length > 150 && regreso)
+            if (txtNombre.Text.Length > 80 && regreso)
             {
                 regreso = false;
-                mensaje.MensagesCaja("NOMBRE DE EMPLEADO ES MUY LARGO", "Information");
+                mensaje.MensagesCaja("NOMBRE DE ROL ES MUY LARGO", "Information");
             }
 
             return regreso;
@@ -288,59 +233,24 @@ namespace Rinku
             //Muestra los datos en pantalla
             btnBorrar.Enabled = true;
             txtID.Text = dataGridView.Rows[Renglon].Cells[0].Value.ToString();
-            txtCod.Text = dataGridView.Rows[Renglon].Cells[1].Value.ToString();
-            txtNombre.Text = dataGridView.Rows[Renglon].Cells[2].Value.ToString();
-            cBoxRol.SelectedValue = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[3].Value.ToString());
-            cBoxTipo.SelectedValue = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[5].Value.ToString());
-            numSueldo.Value = Convert.ToDecimal(dataGridView.Rows[Renglon].Cells[7].Value.ToString());
-            cBoxJornada.Text = dataGridView.Rows[Renglon].Cells[8].Value.ToString();
-            btnBorrar.Text = dataGridView.Rows[Renglon].Cells[9].Value.ToString() == "Borrado" ? "Activar" : "Borrar";
-        }
-
-        private void LlenarHoras()
-        {
-            for(int i = 1; i <= 12; i++)
-            {
-                cBoxJornada.Items.Add(i);
-            }
-            cBoxJornada.Text = "8";
+            txtNombre.Text = dataGridView.Rows[Renglon].Cells[1].Value.ToString();
+            nBono.Value = Convert.ToDecimal(dataGridView.Rows[Renglon].Cells[2].Value.ToString());
+            checkBPaq.Checked = dataGridView.Rows[Renglon].Cells[3].Value.ToString()=="SI"?true:false;
+            btnBorrar.Text = dataGridView.Rows[Renglon].Cells[4].Value.ToString() == "Borrado" ? "Activar" : "Borrar";
         }
         private void LimpiezaTxt()
         {
             txtID.Visible = false;
             txtID.Text = "0";
-            txtCod.Text = "";
             txtNombre.Text = "";
-            numSueldo.Value = 0;
-            cBoxJornada.Text = "8";
-            txtCod.Enabled = false;
+            nBono.Value = 0;
+            checkBPaq.Checked = true;
+            txtID.Enabled = false;
             btnBorrar.Enabled = false;
-
-            lParam = new string[] { "@Opc", "@Id" };
-            lVar = new string[] { "5", "0" };
-            txtCod.Text = gRepo.BuscarReg("c_spEmpleado", lParam, lVar);
 
             txtNombre.Select();
 
         }
-
-
-        //private void JuegoTeclas(KeyEventArgs Tecla)
-        //{
-        //    switch (Tecla.KeyCode)
-        //    {
-        //        case Keys.Up:
-        //            if 
-        //            txtNombre.Text = txtNombre.Text.ToUpper();
-        //            SendKeys.Send("{TAB}");
-        //            //Evitar el pitido
-        //            e.Handled = true;
-        //            break;
-        //        default:
-        //            JuegoTeclas(e);
-        //            break;
-        //    }
-        //}
 
     }
 }

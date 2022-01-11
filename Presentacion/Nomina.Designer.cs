@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.components = new System.ComponentModel.Container();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtFechaIni = new System.Windows.Forms.TextBox();
-            this.txtFechaFin = new System.Windows.Forms.TextBox();
-            this.lblDateIni = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnGenerar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblDateIni = new System.Windows.Forms.Label();
+            this.txtFechaFin = new System.Windows.Forms.TextBox();
+            this.txtFechaIni = new System.Windows.Forms.TextBox();
+            this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(1, 100);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(795, 338);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(1, 100);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(795, 338);
+            this.dataGridView.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -62,43 +65,6 @@
             this.groupBox1.Size = new System.Drawing.Size(795, 91);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            // 
-            // txtFechaIni
-            // 
-            this.txtFechaIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFechaIni.Location = new System.Drawing.Point(229, 19);
-            this.txtFechaIni.Name = "txtFechaIni";
-            this.txtFechaIni.Size = new System.Drawing.Size(111, 26);
-            this.txtFechaIni.TabIndex = 0;
-            this.txtFechaIni.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFechaIni_KeyDown);
-            // 
-            // txtFechaFin
-            // 
-            this.txtFechaFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFechaFin.Location = new System.Drawing.Point(452, 19);
-            this.txtFechaFin.Name = "txtFechaFin";
-            this.txtFechaFin.Size = new System.Drawing.Size(111, 26);
-            this.txtFechaFin.TabIndex = 1;
-            // 
-            // lblDateIni
-            // 
-            this.lblDateIni.AutoSize = true;
-            this.lblDateIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateIni.Location = new System.Drawing.Point(112, 25);
-            this.lblDateIni.Name = "lblDateIni";
-            this.lblDateIni.Size = new System.Drawing.Size(111, 20);
-            this.lblDateIni.TabIndex = 2;
-            this.lblDateIni.Text = "Fecha Inicial";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(343, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 20);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Fecha Final";
             // 
             // btnSalir
             // 
@@ -124,29 +90,71 @@
             this.btnGenerar.UseVisualStyleBackColor = false;
             this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(343, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(103, 20);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Fecha Final";
+            // 
+            // lblDateIni
+            // 
+            this.lblDateIni.AutoSize = true;
+            this.lblDateIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDateIni.Location = new System.Drawing.Point(112, 25);
+            this.lblDateIni.Name = "lblDateIni";
+            this.lblDateIni.Size = new System.Drawing.Size(111, 20);
+            this.lblDateIni.TabIndex = 2;
+            this.lblDateIni.Text = "Fecha Inicial";
+            // 
+            // txtFechaFin
+            // 
+            this.txtFechaFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFechaFin.Location = new System.Drawing.Point(452, 19);
+            this.txtFechaFin.MaxLength = 10;
+            this.txtFechaFin.Name = "txtFechaFin";
+            this.txtFechaFin.Size = new System.Drawing.Size(111, 26);
+            this.txtFechaFin.TabIndex = 1;
+            this.txtFechaFin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFechaFin_KeyPress);
+            // 
+            // txtFechaIni
+            // 
+            this.txtFechaIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFechaIni.Location = new System.Drawing.Point(229, 19);
+            this.txtFechaIni.MaxLength = 10;
+            this.txtFechaIni.Name = "txtFechaIni";
+            this.txtFechaIni.Size = new System.Drawing.Size(111, 26);
+            this.txtFechaIni.TabIndex = 0;
+            this.txtFechaIni.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFechaIni_KeyDown);
+            this.txtFechaIni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFechaIni_KeyPress);
+            // 
             // Nomina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Nomina";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nomina";
             this.Load += new System.EventHandler(this.Nomina_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDateIni;
@@ -154,5 +162,6 @@
         private System.Windows.Forms.TextBox txtFechaIni;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnGenerar;
+        private System.Windows.Forms.BindingSource bindingSource;
     }
 }

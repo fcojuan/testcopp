@@ -1,22 +1,33 @@
-﻿using Rinku.Utileria;
+﻿using Rinku.Models;
+using Rinku.Repository;
+using Rinku.Utileria;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+/// <summary>
+/// Realiza el calculo de la nomina en base a dos fechas
+/// </summary>
 
 namespace Rinku.Presentacion
 {
     public partial class Nomina : Form
     {
+        private readonly dRepository<Movimientoc> gRepo;
         MensageCaja mensaje = new MensageCaja();
+
+        string[] lParam = { };
+        string[] lVar = { };
         public Nomina()
         {
             InitializeComponent();
+            gRepo=new dRepository<Movimientoc>();
         }
 
         private void Nomina_Load(object sender, EventArgs e)
@@ -60,8 +71,9 @@ namespace Rinku.Presentacion
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            if (Validar())
+            if (Validar())//Valida las fechas
             {
+                LlenarGrid();
                 mensaje.MensagesCaja("ejecutar", "Information");
             }
         }
@@ -84,5 +96,148 @@ namespace Rinku.Presentacion
 
             return regreso;
         }
+
+        private void txtFechaIni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))//solo acpeta numero
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar != ((char)(Keys.Back)))
+            {
+                if(txtFechaIni.Text.Length == 2 || txtFechaIni.Text.Length == 5) //agrega la / a la fecha
+                {
+                    txtFechaIni.Text = txtFechaIni.Text + "/";
+                    txtFechaIni.SelectionStart = txtFechaIni.Text.Length;
+                }
+            }
+        }
+
+        private void txtFechaFin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) )//solo acpeta numero
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar != ((char)(Keys.Back)))
+            {
+                if (txtFechaFin.Text.Length == 2 || txtFechaFin.Text.Length == 5) //agrega la / a la fecha
+                {
+                    txtFechaFin.Text = txtFechaFin.Text + "/";
+                    txtFechaFin.SelectionStart = txtFechaFin.Text.Length;
+                }
+            }
+        }
+        //-------FUNCIONES
+        private async Task ActualizarGrid()
+        {
+            DataGridViewCellStyle cellStyle = new DataGridViewCellStyle();
+
+            //------------agrega columnas al datatable en base al modelo
+            DataTable dt = new DataTable();
+            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(Movimientoc));
+
+            for (int i = 0; i < props.Count; i++)
+            {
+                PropertyDescriptor prop = props[i];
+                dt.Columns.Add(prop.Name, prop.PropertyType);
+            }
+            //------------llama al procedimiento con la fecha actual  para traerse los datos con esa fecha
+            lParam = new string[] { "@FechaIni" , "@FechaFin" };
+            lVar = new string[] { Convert.ToDateTime(txtFechaIni.Text).ToString("dd/MM/yyyy"), Convert.ToDateTime(txtFechaFin.Text).ToString("dd/MM/yyyy") };
+
+            var Lista = await Task.Run(() => gRepo.BDListaDatos("c_spCalculoNomina", lParam, lVar));
+
+            //-----------vacia la lista en el datatable
+            object[] values = new object[props.Count];
+            foreach (Movimientoc item in Lista)
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    values[i] = props[i].GetValue(item);
+                }
+                dt.Rows.Add(values);
+            }
+            //-----------asigna el datatable al biding para asignarlo al dataview
+            bindingSource.DataMember = "";
+            bindingSource.DataSource = null;
+
+            bindingSource.DataSource = dt;
+
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.AllowUserToDeleteRows = false;
+            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //---------------Poner Encabezado en negritas
+            cellStyle.Font = new Font(dataGridView.Font.Name, dataGridView.Font.Size, FontStyle.Bold);
+            dataGridView.ColumnHeadersDefaultCellStyle = cellStyle;
+            //---------------Poner Color a los Renglones
+            dataGridView.RowsDefaultCellStyle.BackColor = Color.White;
+            dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.Wheat;
+            dataGridView.DataSource = bindingSource;
+
+            for (int i = 0; i < dataGridView.Columns.Count; i++)
+            {
+                dataGridView.Columns[i].ReadOnly = true;
+            }
+            dataGridView.Columns[0].Visible = false;
+            //dataGridView.Columns[5].Visible = false;
+            //dataGridView.Columns[7].Visible = false;
+            //dataGridView.Columns[8].Visible = false;
+            //dataGridView.Columns[9].Visible = false;
+            //dataGridView.Columns[10].Visible = false;
+            //dataGridView.Columns[11].Visible = false;
+            //dataGridView.Columns[12].Visible = false;
+        }
+
+        private void LlenarGrid()
+        {
+            SqlConnection dataConnection = new SqlConnection(gRepo.GetConnection()); //Llama a la coneccion
+
+            SqlCommand cmd = new SqlCommand("c_spCalculoNomina", dataConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@FechaIni", SqlDbType.VarChar, 10).Value = Convert.ToDateTime(txtFechaIni.Text).ToString("yyyy/MM/dd");
+            cmd.Parameters.Add("@FechaFin", SqlDbType.VarChar, 10).Value = Convert.ToDateTime(txtFechaFin.Text).ToString("yyyy/MM/dd");
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            bindingSource.DataSource = dt;
+            dataGridView.DataSource = bindingSource;
+
+            formatearGrid();
+
+
+        }
+        private void formatearGrid()
+        {
+            DataGridViewCellStyle cellStyle = new DataGridViewCellStyle();
+
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.AllowUserToDeleteRows = false;
+            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //---------------Poner Encabezado en negritas
+            cellStyle.Font = new Font(dataGridView.Font.Name, dataGridView.Font.Size, FontStyle.Bold);
+            dataGridView.ColumnHeadersDefaultCellStyle = cellStyle;
+            //---------------Poner Color a los Renglones
+            dataGridView.RowsDefaultCellStyle.BackColor = Color.White;
+            dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.Wheat;
+            dataGridView.DataSource = bindingSource;
+
+            for (int i = 0; i < dataGridView.Columns.Count; i++)
+            {
+                dataGridView.Columns[i].ReadOnly = true;
+                if(i>1 && i < 9)
+                {
+                    dataGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+            }
+            dataGridView.Columns[9].Visible = false;
+            dataGridView.Columns[11].Visible = false;
+        }
+
     }
 }

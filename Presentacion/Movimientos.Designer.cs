@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblNomCarga = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtCargador = new System.Windows.Forms.TextBox();
             this.lblID = new System.Windows.Forms.TextBox();
             this.nHoras = new System.Windows.Forms.NumericUpDown();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -52,9 +55,6 @@
             this.btn_Add = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.bindingSourceMov = new System.Windows.Forms.BindingSource(this.components);
-            this.txtCargador = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblNomCarga = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nHoras)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntrega)).BeginInit();
@@ -89,6 +89,35 @@
             this.groupBox1.Size = new System.Drawing.Size(785, 212);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // lblNomCarga
+            // 
+            this.lblNomCarga.BackColor = System.Drawing.Color.White;
+            this.lblNomCarga.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblNomCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNomCarga.Location = new System.Drawing.Point(306, 119);
+            this.lblNomCarga.Name = "lblNomCarga";
+            this.lblNomCarga.Size = new System.Drawing.Size(414, 26);
+            this.lblNomCarga.TabIndex = 17;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 125);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(176, 20);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Codigo Del Cargador";
+            // 
+            // txtCargador
+            // 
+            this.txtCargador.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCargador.Location = new System.Drawing.Point(200, 117);
+            this.txtCargador.Name = "txtCargador";
+            this.txtCargador.Size = new System.Drawing.Size(100, 26);
+            this.txtCargador.TabIndex = 15;
+            this.txtCargador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCargador_KeyDown);
             // 
             // lblID
             // 
@@ -158,6 +187,11 @@
             // 
             this.nEntrega.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nEntrega.Location = new System.Drawing.Point(200, 183);
+            this.nEntrega.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.nEntrega.Minimum = new decimal(new int[] {
             1,
             0,
@@ -317,6 +351,7 @@
             this.btn_Add.TabIndex = 5;
             this.btn_Add.Text = "&Nuevo";
             this.btn_Add.UseVisualStyleBackColor = false;
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // dataGridView
             // 
@@ -327,35 +362,6 @@
             this.dataGridView.TabIndex = 9;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_KeyDown);
-            // 
-            // txtCargador
-            // 
-            this.txtCargador.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCargador.Location = new System.Drawing.Point(200, 117);
-            this.txtCargador.Name = "txtCargador";
-            this.txtCargador.Size = new System.Drawing.Size(100, 26);
-            this.txtCargador.TabIndex = 15;
-            this.txtCargador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCargador_KeyDown);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 125);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(176, 20);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Codigo Del Cargador";
-            // 
-            // lblNomCarga
-            // 
-            this.lblNomCarga.BackColor = System.Drawing.Color.White;
-            this.lblNomCarga.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblNomCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNomCarga.Location = new System.Drawing.Point(306, 119);
-            this.lblNomCarga.Name = "lblNomCarga";
-            this.lblNomCarga.Size = new System.Drawing.Size(414, 26);
-            this.lblNomCarga.TabIndex = 17;
             // 
             // Movimientos
             // 

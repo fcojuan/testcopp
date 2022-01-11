@@ -55,5 +55,19 @@ namespace Rinku
             childForm.MdiParent = this;
             childForm.Show();
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            cRol childForm = new cRol();
+            childForm.MdiParent = this;
+            childForm.Show();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            cTipo childForm = new cTipo();
+            childForm.MdiParent = this;
+            childForm.Show();
+        }
     }
 }

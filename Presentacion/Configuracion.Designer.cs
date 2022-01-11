@@ -132,11 +132,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(132, 22);
+            this.label2.Location = new System.Drawing.Point(85, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 20);
+            this.label2.Size = new System.Drawing.Size(176, 20);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Choferes";
+            this.label2.Text = "Auxiliares (Choferes)";
             // 
             // nBonoHrs
             // 
@@ -185,11 +185,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(109, 22);
+            this.label3.Location = new System.Drawing.Point(73, 23);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 20);
+            this.label3.Size = new System.Drawing.Size(196, 20);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Cargadores";
+            this.label3.Text = "Auxiliares (Cargadores)";
             // 
             // nComiCarga
             // 

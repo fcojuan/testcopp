@@ -31,6 +31,11 @@ namespace Rinku.Presentacion
             eRepo = new dRepository<Empleadoc>();
             gRepo = new dRepository<Movimientoc>();
         }
+        private void btn_Add_Click(object sender, EventArgs e)
+        {
+            LimpiezaTxt();
+            txtCod.Focus();
+        }
 
         private async void Movimientos_Load(object sender, EventArgs e)
         {
@@ -85,7 +90,11 @@ namespace Rinku.Presentacion
         private void checkCT_CheckedChanged(object sender, EventArgs e)
         {
             nHoras.Enabled = checkCT.Checked == true ? false : true;
-            nHoras.Value = checkCT.Checked == true ? 8 : 1;
+            if (checkCT.Checked)
+            {
+                nHoras.Value = 8;
+            }
+            
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -169,12 +178,12 @@ namespace Rinku.Presentacion
             }
             dataGridView.Columns[0].Visible = false;
             //dataGridView.Columns[5].Visible = false;
-            dataGridView.Columns[7].Visible = false;
-            dataGridView.Columns[8].Visible = false;
-            dataGridView.Columns[9].Visible = false;
-            dataGridView.Columns[10].Visible = false;
-            dataGridView.Columns[11].Visible = false;
-            dataGridView.Columns[12].Visible = false;
+            //dataGridView.Columns[7].Visible = false;
+            //dataGridView.Columns[8].Visible = false;
+            //dataGridView.Columns[9].Visible = false;
+            //dataGridView.Columns[10].Visible = false;
+            //dataGridView.Columns[11].Visible = false;
+            //dataGridView.Columns[12].Visible = false;
         }
         private void dataGridView_KeyDown(object sender, KeyEventArgs e)
         {
@@ -224,7 +233,9 @@ namespace Rinku.Presentacion
             lblID.Visible = false;
             lblID.Text = "0";
             txtCod.Text = "";
+            txtCargador.Text = "";
             lblNombre.Text = "";
+            lblNomCarga.Text = "";
             lblRol.Text = "";
             lblTipo.Text = "";
             txtFecha.Text = "";
@@ -290,7 +301,7 @@ namespace Rinku.Presentacion
             nHoras.Value = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[6].Value);
             checkCT.Checked = Convert.ToInt32(dataGridView.Rows[Renglon].Cells[6].Value) == 8 ? true : false;
             txtFecha.Text = dataGridView.Rows[Renglon].Cells[7].Value.ToString();
-            btnBorrar.Text = dataGridView.Rows[Renglon].Cells[13].Value.ToString() == "Borrado" ? "Activar" : "Borrado";
+            btnBorrar.Text = dataGridView.Rows[Renglon].Cells[8].Value.ToString() == "Borrado" ? "Activar" : "Borrado";
             await DatosEmpleado(txtCod.Text,1);
             await DatosEmpleado(txtCargador.Text,2);
         }
@@ -325,7 +336,6 @@ namespace Rinku.Presentacion
             };
             return lcampos;
         }
-
 
     }
 }

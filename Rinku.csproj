@@ -91,6 +91,18 @@
     <Compile Include="Presentacion\Configuracion.Designer.cs">
       <DependentUpon>Configuracion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\cRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\cRol.Designer.cs">
+      <DependentUpon>cRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\cTipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\cTipo.Designer.cs">
+      <DependentUpon>cTipo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Movimientos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,7 +118,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\dRepository.cs" />
-    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Utileria\MensageCaja.cs" />
     <EmbeddedResource Include="cEmpleado.resx">
       <DependentUpon>cEmpleado.cs</DependentUpon>
@@ -116,6 +127,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Configuracion.resx">
       <DependentUpon>Configuracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\cRol.resx">
+      <DependentUpon>cRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\cTipo.resx">
+      <DependentUpon>cTipo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Movimientos.resx">
       <DependentUpon>Movimientos.cs</DependentUpon>
