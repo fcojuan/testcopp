@@ -11,7 +11,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+/// <summary>
+/// Se capturan la entrega de paquetes 
+/// # de paquetes, jornada de trabajo,chofer y cargador
+/// </summary>
 namespace Rinku.Presentacion
 {
     public partial class Movimientos : Form
@@ -126,6 +129,8 @@ namespace Rinku.Presentacion
         }
         private async Task ActualizarGrid()
         {
+            this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+
             DataGridViewCellStyle cellStyle = new DataGridViewCellStyle();
 
             //------------agrega columnas al datatable
@@ -177,13 +182,8 @@ namespace Rinku.Presentacion
                 dataGridView.Columns[i].ReadOnly = true;
             }
             dataGridView.Columns[0].Visible = false;
-            //dataGridView.Columns[5].Visible = false;
-            //dataGridView.Columns[7].Visible = false;
-            //dataGridView.Columns[8].Visible = false;
-            //dataGridView.Columns[9].Visible = false;
-            //dataGridView.Columns[10].Visible = false;
-            //dataGridView.Columns[11].Visible = false;
-            //dataGridView.Columns[12].Visible = false;
+
+            this.Cursor = System.Windows.Forms.Cursors.Default;
         }
         private void dataGridView_KeyDown(object sender, KeyEventArgs e)
         {
@@ -204,6 +204,7 @@ namespace Rinku.Presentacion
         }
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //llama  la funcion para mostrar datos en pantalla
             DataGridViewCell Indcell = dataGridView.CurrentCell;
             CargarDatos(Indcell.RowIndex);
 
@@ -337,5 +338,32 @@ namespace Rinku.Presentacion
             return lcampos;
         }
 
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            //Muestra la ayuda de empleado solo muestra choferes y aux
+            AyudaEmp childForm = new AyudaEmp("2");
+            childForm.ShowDialog();
+            string lxCod = childForm.MyProperty;
+            if (lxCod.Length > 0)
+            {
+                txtCod.Text = lxCod;
+            }
+            txtCod.SelectAll();
+            txtCod.Focus();
+        }
+
+        private void btnSearchC_Click(object sender, EventArgs e)
+        {
+            //Muestra la ayuda de empleado solo muestra Cargadores y aux
+            AyudaEmp childForm = new AyudaEmp("1");
+            childForm.ShowDialog();
+            string lxCod = childForm.MyProperty;
+            if (lxCod.Length > 0)
+            {
+                txtCargador.Text = lxCod;
+            }
+            txtCargador.SelectAll();
+            txtCargador.Focus();
+        }
     }
 }

@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 /// <summary>
 /// Realiza el calculo de la nomina en base a dos fechas
+/// obtiene los datos de los movimientos y en base a los empleado sy configuracion 
+/// aplica bonos o no
 /// </summary>
 
 namespace Rinku.Presentacion
@@ -74,7 +76,7 @@ namespace Rinku.Presentacion
             if (Validar())//Valida las fechas
             {
                 LlenarGrid();
-                mensaje.MensagesCaja("ejecutar", "Information");
+                mensaje.MensagesCaja("Nomina Calculada", "Information");
             }
         }
 
@@ -131,69 +133,10 @@ namespace Rinku.Presentacion
             }
         }
         //-------FUNCIONES
-        private async Task ActualizarGrid()
-        {
-            DataGridViewCellStyle cellStyle = new DataGridViewCellStyle();
-
-            //------------agrega columnas al datatable en base al modelo
-            DataTable dt = new DataTable();
-            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(Movimientoc));
-
-            for (int i = 0; i < props.Count; i++)
-            {
-                PropertyDescriptor prop = props[i];
-                dt.Columns.Add(prop.Name, prop.PropertyType);
-            }
-            //------------llama al procedimiento con la fecha actual  para traerse los datos con esa fecha
-            lParam = new string[] { "@FechaIni" , "@FechaFin" };
-            lVar = new string[] { Convert.ToDateTime(txtFechaIni.Text).ToString("dd/MM/yyyy"), Convert.ToDateTime(txtFechaFin.Text).ToString("dd/MM/yyyy") };
-
-            var Lista = await Task.Run(() => gRepo.BDListaDatos("c_spCalculoNomina", lParam, lVar));
-
-            //-----------vacia la lista en el datatable
-            object[] values = new object[props.Count];
-            foreach (Movimientoc item in Lista)
-            {
-                for (int i = 0; i < values.Length; i++)
-                {
-                    values[i] = props[i].GetValue(item);
-                }
-                dt.Rows.Add(values);
-            }
-            //-----------asigna el datatable al biding para asignarlo al dataview
-            bindingSource.DataMember = "";
-            bindingSource.DataSource = null;
-
-            bindingSource.DataSource = dt;
-
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.AllowUserToAddRows = false;
-            dataGridView.AllowUserToDeleteRows = false;
-            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //---------------Poner Encabezado en negritas
-            cellStyle.Font = new Font(dataGridView.Font.Name, dataGridView.Font.Size, FontStyle.Bold);
-            dataGridView.ColumnHeadersDefaultCellStyle = cellStyle;
-            //---------------Poner Color a los Renglones
-            dataGridView.RowsDefaultCellStyle.BackColor = Color.White;
-            dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.Wheat;
-            dataGridView.DataSource = bindingSource;
-
-            for (int i = 0; i < dataGridView.Columns.Count; i++)
-            {
-                dataGridView.Columns[i].ReadOnly = true;
-            }
-            dataGridView.Columns[0].Visible = false;
-            //dataGridView.Columns[5].Visible = false;
-            //dataGridView.Columns[7].Visible = false;
-            //dataGridView.Columns[8].Visible = false;
-            //dataGridView.Columns[9].Visible = false;
-            //dataGridView.Columns[10].Visible = false;
-            //dataGridView.Columns[11].Visible = false;
-            //dataGridView.Columns[12].Visible = false;
-        }
-
         private void LlenarGrid()
         {
+            this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+
             SqlConnection dataConnection = new SqlConnection(gRepo.GetConnection()); //Llama a la coneccion
 
             SqlCommand cmd = new SqlCommand("c_spCalculoNomina", dataConnection);
@@ -209,7 +152,7 @@ namespace Rinku.Presentacion
 
             formatearGrid();
 
-
+            this.Cursor = System.Windows.Forms.Cursors.Default;
         }
         private void formatearGrid()
         {

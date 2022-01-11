@@ -19,3 +19,4 @@ C:\SISTEMAS\Rinku\obj\Debug\Rinku.Presentacion.Movimientos.resources
 C:\SISTEMAS\Rinku\obj\Debug\Rinku.Presentacion.Nomina.resources
 C:\SISTEMAS\Rinku\obj\Debug\Rinku.Presentacion.cRol.resources
 C:\SISTEMAS\Rinku\obj\Debug\Rinku.Presentacion.cTipo.resources
+C:\SISTEMAS\Rinku\obj\Debug\Rinku.Presentacion.AyudaEmp.resources

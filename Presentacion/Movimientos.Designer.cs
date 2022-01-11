@@ -55,6 +55,7 @@
             this.btn_Add = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.bindingSourceMov = new System.Windows.Forms.BindingSource(this.components);
+            this.btnSearchC = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nHoras)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntrega)).BeginInit();
@@ -65,6 +66,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.PeachPuff;
+            this.groupBox1.Controls.Add(this.btnSearchC);
             this.groupBox1.Controls.Add(this.lblNomCarga);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtCargador);
@@ -95,9 +97,9 @@
             this.lblNomCarga.BackColor = System.Drawing.Color.White;
             this.lblNomCarga.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblNomCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNomCarga.Location = new System.Drawing.Point(306, 119);
+            this.lblNomCarga.Location = new System.Drawing.Point(385, 119);
             this.lblNomCarga.Name = "lblNomCarga";
-            this.lblNomCarga.Size = new System.Drawing.Size(414, 26);
+            this.lblNomCarga.Size = new System.Drawing.Size(335, 26);
             this.lblNomCarga.TabIndex = 17;
             // 
             // label3
@@ -116,7 +118,7 @@
             this.txtCargador.Location = new System.Drawing.Point(200, 117);
             this.txtCargador.Name = "txtCargador";
             this.txtCargador.Size = new System.Drawing.Size(100, 26);
-            this.txtCargador.TabIndex = 15;
+            this.txtCargador.TabIndex = 2;
             this.txtCargador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCargador_KeyDown);
             // 
             // lblID
@@ -143,7 +145,7 @@
             0});
             this.nHoras.Name = "nHoras";
             this.nHoras.Size = new System.Drawing.Size(58, 26);
-            this.nHoras.TabIndex = 5;
+            this.nHoras.TabIndex = 6;
             this.nHoras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nHoras.Value = new decimal(new int[] {
             1,
@@ -160,6 +162,7 @@
             this.btnSearch.TabIndex = 13;
             this.btnSearch.Text = "&Busqueda";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // checkCT
             // 
@@ -168,7 +171,7 @@
             this.checkCT.Location = new System.Drawing.Point(317, 185);
             this.checkCT.Name = "checkCT";
             this.checkCT.Size = new System.Drawing.Size(131, 24);
-            this.checkCT.TabIndex = 4;
+            this.checkCT.TabIndex = 5;
             this.checkCT.Text = "Cubrio Turno";
             this.checkCT.UseVisualStyleBackColor = true;
             this.checkCT.CheckedChanged += new System.EventHandler(this.checkCT_CheckedChanged);
@@ -199,7 +202,7 @@
             0});
             this.nEntrega.Name = "nEntrega";
             this.nEntrega.Size = new System.Drawing.Size(100, 26);
-            this.nEntrega.TabIndex = 3;
+            this.nEntrega.TabIndex = 4;
             this.nEntrega.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nEntrega.Value = new decimal(new int[] {
             1,
@@ -223,7 +226,7 @@
             this.txtFecha.Location = new System.Drawing.Point(200, 151);
             this.txtFecha.Name = "txtFecha";
             this.txtFecha.Size = new System.Drawing.Size(100, 26);
-            this.txtFecha.TabIndex = 2;
+            this.txtFecha.TabIndex = 3;
             // 
             // label6
             // 
@@ -363,6 +366,17 @@
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_KeyDown);
             // 
+            // btnSearchC
+            // 
+            this.btnSearchC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchC.Location = new System.Drawing.Point(306, 119);
+            this.btnSearchC.Name = "btnSearchC";
+            this.btnSearchC.Size = new System.Drawing.Size(73, 26);
+            this.btnSearchC.TabIndex = 18;
+            this.btnSearchC.Text = "&Busqueda";
+            this.btnSearchC.UseVisualStyleBackColor = true;
+            this.btnSearchC.Click += new System.EventHandler(this.btnSearchC_Click);
+            // 
             // Movimientos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -416,5 +430,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtCargador;
         private System.Windows.Forms.Label lblNomCarga;
+        private System.Windows.Forms.Button btnSearchC;
     }
 }

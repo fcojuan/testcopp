@@ -10,7 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+/// <summary>
+/// Catalog de tipo de empleado interno o externo
+/// </summary>
 namespace Rinku.Presentacion
 {
     public partial class cTipo : Form

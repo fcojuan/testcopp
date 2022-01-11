@@ -68,10 +68,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cEmpleado.cs">
+    <Compile Include="Presentacion\cEmpleado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="cEmpleado.Designer.cs">
+    <Compile Include="Presentacion\cEmpleado.Designer.cs">
       <DependentUpon>cEmpleado.cs</DependentUpon>
     </Compile>
     <Compile Include="MDIParent1.cs">
@@ -85,6 +85,12 @@
     <Compile Include="Models\Movimientoc.cs" />
     <Compile Include="Models\Tipoc.cs" />
     <Compile Include="Models\Rolc.cs" />
+    <Compile Include="Presentacion\AyudaEmp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\AyudaEmp.Designer.cs">
+      <DependentUpon>AyudaEmp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Configuracion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,11 +125,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\dRepository.cs" />
     <Compile Include="Utileria\MensageCaja.cs" />
-    <EmbeddedResource Include="cEmpleado.resx">
+    <EmbeddedResource Include="Presentacion\cEmpleado.resx">
       <DependentUpon>cEmpleado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MDIParent1.resx">
       <DependentUpon>MDIParent1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\AyudaEmp.resx">
+      <DependentUpon>AyudaEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Configuracion.resx">
       <DependentUpon>Configuracion.cs</DependentUpon>

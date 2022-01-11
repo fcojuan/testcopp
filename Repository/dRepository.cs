@@ -8,11 +8,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/// <summary>
+/// REaliza el mapeo o coneccion a la base de datos toda la funcionalidad que se tenga que realizar en la BD
+/// </summary>
 namespace Rinku.Repository
 {
     public class dRepository<T> 
-        //: IRepository<T> where T : class
     {
 
         public string GetConnection()

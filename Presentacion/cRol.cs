@@ -10,7 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+/// <summary>
+/// Catalgo de rol y bonos por autorizar y algunos con importes aplicar a los empleados
+/// </summary>
 namespace Rinku.Presentacion
 {
     public partial class cRol : Form

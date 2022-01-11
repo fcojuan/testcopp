@@ -264,7 +264,7 @@ namespace Rinku
             dataGridView.Columns[3].Visible = false;
             dataGridView.Columns[5].Visible = false;
 
-            lblTotal.Text = "Empleado Totales: " + lista1.Count.ToString();
+            lblTotal.Text = "Empleados Totales: " + lista1.Count.ToString();
         }
         private bool Validar()
         {
@@ -295,6 +295,7 @@ namespace Rinku
             numSueldo.Value = Convert.ToDecimal(dataGridView.Rows[Renglon].Cells[7].Value.ToString());
             cBoxJornada.Text = dataGridView.Rows[Renglon].Cells[8].Value.ToString();
             btnBorrar.Text = dataGridView.Rows[Renglon].Cells[9].Value.ToString() == "Borrado" ? "Activar" : "Borrar";
+            if (txtsearch.Text.Length > 0) { txtsearch.Text = ""; }
         }
 
         private void LlenarHoras()
@@ -322,6 +323,14 @@ namespace Rinku
 
             txtNombre.Select();
 
+        }
+
+        private void txtsearch_TextChanged(object sender, EventArgs e)
+        {
+            var bd = (BindingSource)dataGridView.DataSource;
+            var dt = (DataTable)bd.DataSource;
+            dt.DefaultView.RowFilter = string.Format("Nombre like '%{0}%'", txtsearch.Text.Trim().Replace("'", "''"));
+            dataGridView.Refresh();
         }
 
 

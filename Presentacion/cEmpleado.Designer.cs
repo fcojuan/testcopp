@@ -289,6 +289,7 @@
             this.txtsearch.Size = new System.Drawing.Size(290, 26);
             this.txtsearch.TabIndex = 5;
             this.txtsearch.Tag = "0";
+            this.txtsearch.TextChanged += new System.EventHandler(this.txtsearch_TextChanged);
             // 
             // lblsearch
             // 
